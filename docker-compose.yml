@@ -1,6 +1,10 @@
 version: '3.8'
 
 services:
+  delay:
+    image: alpine
+    command: sleep 20
+
   webapp: 
     build: .
     labels:
@@ -15,7 +19,8 @@ services:
       - PORT=3000
       - LOG_PATH=/app/log/app.log
     depends_on:
-      - grafana
+      delay:
+        condition: service_completed_successfully
 
   grafana:
     image: grafana/grafana
