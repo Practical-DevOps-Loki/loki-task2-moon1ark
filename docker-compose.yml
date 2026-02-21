@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  webapp:
+  webapp: 
     build: .
     labels:
       logging: "promtail"
@@ -19,7 +19,7 @@ services:
     ports:
       - 9090:3000
     volumes:
-      - ./loki-config/grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yml
+      - ./loki-config/grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
     environment:
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
@@ -29,7 +29,7 @@ services:
     image: grafana/loki
     ports:
       - 3100:3100
-    command: -config.file=/etc/loki/local-config.yml
+    command: -config.file=/etc/loki/local-config.yaml
 
   promtail:
     image: grafana/promtail
