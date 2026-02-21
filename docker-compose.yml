@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   webapp:
-    build:
+    build: .
     labels:
       logging: "promtail"
       logging_jobname: "webapp_logs"
