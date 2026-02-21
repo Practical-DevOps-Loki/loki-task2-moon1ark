@@ -5,6 +5,16 @@ WORKDIR /app
 COPY ./ ./
 
 RUN CGO_ENABLED=0 GOOS=LINUX go mod download && go build -o webapp
-RUN go build -o main .
-EXPOSE 8080
-CMD ["./main"]
+
+FROM alpine
+
+ENV PORT=3000 \
+    LOG_PATH=/app/log/app.log
+
+WORKDIR /app
+
+COPY --from=build-stage /app /app
+
+EXPOSE 3000
+
+CMD ["/app/webapp"]
