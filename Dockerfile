@@ -10,8 +10,7 @@ ENV PORT=3000 \
     LOG_PATH=/app/log/app.log
 
 WORKDIR /app
-COPY --from=build-stage /app/webapp /app
-COPY --from=build-stage /app/public /app/public
+COPY --from=build-stage /app /app
 EXPOSE 3000
 
 CMD ["/app/webapp"]

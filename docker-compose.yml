@@ -8,11 +8,11 @@ services:
       logging: "promtail"
       logging_jobname: "webapp_logs"
     ports:
-      - 8080:3000
+      - 8080:8000
     volumes:
       - log-data:/app/log/
     environment:
-      - PORT=3000
+      - PORT=8000
       - LOG_PATH=/app/log/app.log
 
   grafana:
