@@ -8,10 +8,6 @@ services:
       - "8080:8080"
     labels:
       webapp: "varlogs"
-    logging:
-      driver: json-file
-      options:
-        tag: "{{.ImageName}}|{{.Name}}|{{.ID}}"
 
   loki:
     image: grafana/loki:latest
@@ -35,6 +31,6 @@ services:
       - "9090:3000"
     environment:
       - GF_USERS_DEFAULT_UI_THEME=light
-      - GF_SERVER_CUSTOM_RESPONSE_HEADERS=myHeader:User is: ${nameOfGrafanaUser}. Host is: ${nameOfGrafanaHost}.
+      - "GF_SERVER_CUSTOM_RESPONSE_HEADERS=myHeader:User is: ${nameOfGrafanaUser}. Host is: ${nameOfGrafanaHost}."
     depends_on:
       - loki
