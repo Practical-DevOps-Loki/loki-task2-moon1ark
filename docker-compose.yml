@@ -7,7 +7,7 @@ services:
       logging: "promtail"
       logging_jobname: "webapp_logs"
     ports:
-      - "8080:3000"
+      - 8080:3000
     volumes:
       - log-data:/app/log/
     environment:
@@ -17,9 +17,9 @@ services:
   grafana:
     image: grafana/grafana
     ports:
-      - "9090:3000"
+      - 9090:3000
     volumes:
-      - ./loki-config/grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yml
+      - ./loki-config/grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
     environment:
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
@@ -28,7 +28,7 @@ services:
   loki:
     image: grafana/loki
     ports:
-      - "3100:3100"
+      - 3100:3100
     command: -config.file=/etc/loki/local-config.yaml
 
   promtail:
