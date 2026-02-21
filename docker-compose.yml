@@ -1,1 +1,40 @@
+version: '3.8'
 
+services:
+  webapp:
+    build: .
+    container_name: webapp
+    ports:
+      - "8080:8080"
+    labels:
+      webapp: "varlogs"
+    logging:
+      driver: json-file
+      options:
+        tag: "{{.ImageName}}|{{.Name}}|{{.ID}}"
+
+  loki:
+    image: grafana/loki:latest
+    container_name: loki
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+
+  promtail:
+    image: grafana/promtail:latest
+    container_name: promtail
+    volumes:
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - ./promtail-config.yaml:/etc/promtail/config.yaml
+    command: -config.file=/etc/promtail/config.yaml
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "9090:3000"
+    environment:
+      - GF_USERS_DEFAULT_UI_THEME=light
+      - GF_SERVER_CUSTOM_RESPONSE_HEADERS=myHeader:User is: ${nameOfGrafanaUser}. Host is: ${nameOfGrafanaHost}.
+    depends_on:
+      - loki
