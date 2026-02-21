@@ -15,8 +15,7 @@ services:
       - PORT=3000
       - LOG_PATH=/app/log/app.log
     depends_on:
-      grafana:
-        condition: service_healthy
+      - grafana
 
   grafana:
     image: grafana/grafana
