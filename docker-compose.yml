@@ -4,6 +4,7 @@ services:
   webapp: 
     build: .
     labels:
+      webapp: "varlogs"
       logging: "promtail"
       logging_jobname: "webapp_logs"
     ports:
