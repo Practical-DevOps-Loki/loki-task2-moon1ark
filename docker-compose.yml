@@ -8,7 +8,6 @@ services:
   webapp: 
     build: .
     labels:
-      webapp: "varlogs"
       logging: "promtail"
       logging_jobname: "webapp_logs"
     ports:
@@ -18,16 +17,13 @@ services:
     environment:
       - PORT=3000
       - LOG_PATH=/app/log/app.log
-    depends_on:
-      delay:
-        condition: service_completed_successfully
 
   grafana:
     image: grafana/grafana
     ports:
       - "9090:3000"
     volumes:
-      - ./loki-config/grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
+      - ./loki-config/grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yml
     environment:
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
