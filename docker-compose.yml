@@ -14,7 +14,6 @@ services:
       - PORT=3000
       - LOG_PATH=/app/log/app.log
 
-
   grafana:
     image: grafana/grafana
     ports:
@@ -26,13 +25,11 @@ services:
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
       - GF_AUTH_DISABLE_LOGIN_FORM=true
   
-  
   loki:
     image: grafana/loki
     ports:
       - 3100:3100
     command: -config.file=/etc/loki/local-config.yml
-
 
   promtail:
     image: grafana/promtail
@@ -42,7 +39,6 @@ services:
     command: -config.file=/etc/promtail/webapp-config.yaml
     depends_on:
       - loki
-
 
 volumes:
   log-data:
